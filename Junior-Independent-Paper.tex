@@ -1,0 +1,774 @@
+\documentclass[10pt]{article} % font size
+\usepackage{fancyhdr}
+\usepackage{extramarks}
+\usepackage{dcolumn}
+\usepackage{amsthm}
+\usepackage{authblk}
+\usepackage{amsfonts}
+\usepackage{color}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{arrows,positioning,decorations.pathreplacing}
+%\usetikzlibrary{decorations.pathreplacing}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.0in]{geometry} % side-page margin 
+\usepackage{amsmath, latexsym}
+\usepackage{changepage}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{comment}
+\usepackage{booktabs}
+\renewcommand{\baselinestretch}{1.33} % line spacing 
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{xifthen}
+\usepackage{calc}
+\usepackage{breqn}
+\usepackage{mathtools}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage{xcolor} % text color
+% \graphicspath{ {figures/} }
+% \usepackage{array}
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
+
+\DeclarePairedDelimiter\ceil{\lcseil}{\rceil}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\newcommand{\minus}{\scalebox{0.5}[1.0]{$-$}}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\textit{\small{Implications of Negative Interest Rates}}}
+\fancyhead[RE,LO]{\footnotesize{\leftmark}}
+\fancyfoot[CE,LO]{}
+\fancyfoot[LE,RO]{\thepage}
+
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.0pt}
+
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    filecolor=Mulberry,      
+    urlcolor=blue,
+}
+\urlstyle{same}
+
+\begin{document}
+\title{Implications of Negative Interest Rates: \\ The Impact of Non-interest Income on Performance and Risk for Banks in Denmark\footnote{I would like to acknowledge Professor Urgun and graduate student Chris Mills for invaluable advising and support throughout the course of this project, Bobbi Coffey and Bobray Bordelon at Firestone Library for their persistent efforts with data collection assistance, and Professor de-Swaan for extremely useful recommendations on data sources.}}
+\vspace{2em}
+\author{\textbf{William Carpenter}\footnote{Email: wrc4@princeton.edu}}
+\affil{\textnormal{Advisors: Can Urgun, Chris Mills}} 
+\date{May 11\textsuperscript{th}, 2020}
+\maketitle 
+\vspace{0.3em}
+\begin{abstract}
+    This paper investigates the implications of Danish sector banks' non-interest income on firm performance and risk. Understanding the effects of non-interest income specifically in Denmark is motivated by the proliferation of negative rate monetary policy in Europe and Japan where research is becoming increasingly concerned with the stability of financial systems as negative rates persist. Employing a sample of 38 publicly-traded banks in Denmark for the period 1991-2018, this paper finds that a higher level of non-interest income is associated with increases in bank performance, as measured by both Return on Average Assets (ROAA) and Return on Average Equity (ROAE). Non-interest income is normalized by total assets and is also decomposed into its three common subcomponents for more detailed analysis: trading income, fees \& commissions, and other non-interest income. Trading income is found to be the primary driver of heightened performance. To evaluate bank risk, Marginal Expected Shortfall (MES) is calculated as a systemic measure and Historical Value at Risk (HVaR) as an individual measure. Trading income is found to be the singular component of non-interest income associated with increased systemic risk. Non-interest income as a whole relates to higher individual bank risk. Fees \& commissions and other non-interest income are found to be the two drivers of increased individual bank risk. These results generally align with literature that emphasizes non-interest income's ability to improve performance, but are contrary to those that find risk diversification gains from non-interest income activities. 
+    \\ \\
+      \normalsize{\textbf{Keywords:} Non-interest income, bank performance, negative interest rates, systemic risk} \\ 
+\end{abstract}
+\vspace{3.5em}
+\thispagestyle{empty}
+\newpage
+
+
+\thispagestyle{empty}
+\tableofcontents
+\vspace{3.5em}
+\thispagestyle{empty}
+\newpage
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=MidnightBlue, % MidnightBlue
+    filecolor=magenta,      % Magenta 
+    urlcolor=Purple,        % Purple
+    citecolor=MidnightBlue, % MidnightBlue
+}
+
+\noindent 
+\normalsize
+
+\section{Introduction} 
+The introduction of negative interest rates by monetary regimes during the past decade is an unprecedented phenomenon in the history of economic policy. Potential consequences of breaching the `zero lower bound' has generated a great deal of debate amongst researchers, and rightly so. One primary focus is the impact of this type of policy on banking activity, a part of the economy considered to be closely associated with interest rates. The concern is that banks' profitability will be adversely affected by declining net interest income, often also described through net interest margins. This type of income is defined as the difference between the rates banks pay on deposit accounts and earn from lending activities. So it is considered to be `traditional' as it relates to banks' fundamental role as a lender and deposit-taker. \hyperlink{Turk}{Turk (2016)} emphasizes the positive relationship between interest rates and profitability. Low/negative rates could lead to reduced lending and growth, activity that is regarded as crucial for credit expansion, which if diminished, would be counterproductive to the expansionary objectives of monetary policy in Europe and Japan.
+
+A squeeze in margins is also enhanced due to a stickiness in deposit rates, which banks are unwilling to let fall below zero for their clients. \hyperlink{Lopez}{Lopez et al. (2019)} has documented both declines in net interest income for banks in negative rate environments and the apparent zero lower bound for deposit rates. This and another key finding from \hyperlink{Lopez}{Lopez et al. (2019)} are the main motivations underlying this paper: bank profitability under negative rates has been offset by significant increases in non-interest income, the portion of income often considered `non-traditional' and controversial. 
+
+Non-interest income is revenue generated from a variety of activities that are not categorized by interest income. The largest component is commonly derived from fees \& commissions for services such as loan and mortgage generation, brokerage, credit card fees, inactivity fees, minimum balance charges, overdraft charges, investment banking advisory, and many others. Trading income is another component that is considered the most controversial for bank activity, given its high volatility relative to fees (\hyperlink{Stiroh}{Stiroh 2004}). This could be revenues generated from gains/losses from cash instruments, equities, bonds, futures/options, foreign exchange, credit derivatives, sales of assets, and other investment-related activity. Remaining income not directly associated with fees \& commissions or trading is classified as `other' non-interest income. This component could center around venture capital, financial leasing, merchant banking, and others.
+
+There are two opposing perspectives on the implications of non-interest income. From a more theoretical point of view, banks expanding non-interest activities could produce more diversified revenue generation, thus reducing the likelihood of volatile earnings and overall risk. Having assorted lines of income that might only be weakly correlated to primary interest-related activity could be optimal for steady and robust profitability. While plausible, many researchers provide arguments as to why better performance and reduced risk are not necessarily guaranteed. Fee-based income can require little actual capital holdings, thus corresponding to higher levels of financial leverage (\hyperlink{Chiorazzo}{Chiorazzo et al. 2008}). Smaller banks in particular might not have the market power to increase fees when needed and/or sufficient funding necessary to make costly adjustments from interest to non-interest-oriented objectives. Trading volatility is often highly cyclical, sometimes producing desirable short-term gains, but not without the possibility of considerable losses. \hyperlink{Brunner}{Brunnermeier et al. (2019)} also emphasize that non-interest activity could lead to increased competition with other financial entities that do not have lending/depositing roles like private equity firms and hedge funds. These are a few reasons amongst many others as to why this type of income remains controversial in bank-related research.
+
+
+The insights of \hyperlink{Lopez}{Lopez et al. (2019)} have been supported by research specifically focused on Denmark, a country that has had sub-zero rates for nearly eight  years. Negative monetary policy was introduced by \href{https://www.nationalbanken.dk/en/Pages/Default.aspx}{Danmarks Nationalbank} in 2012, almost two years before any other nation, and remains negative today. The main reason for doing so was to maintain the ERM II currency peg after unease in the euro-zone prompted large capital inflows into Denmark.\footnote{Rates only reverted above zero for a brief period before returning and remaining negative since 2014 (\hyperlink{Turk}{Turk 2016}). Japan and Switzerland also currently have negative rates, with Sweden only recently leaving below-zero territory in late 2019.} \hyperlink{Turk}{Turk (2016)} analyzed the Danish banking sector and found interest income to be declining.  Like \hyperlink{Lopez}{Lopez et al. (2019)}, interest rates on deposit agreements were also seen to have a rigid `zero floor.' Declines were not found to have an adverse effect on the profits of Danish banks and it was emphasized that increasing levels of non-interest income act as a partial cushion, especially that coming from fees and corporate advisory services.\footnote{Declining interest expenses was also mentioned as another reason why NIM (net interest margins) showed little change.} Similar findings for Denmark were also reiterated by \hyperlink{Madashi}{Madashi \& Nuevo (2017)}, which are discussed in \hyperlink{Denmark Literature}{Section 2.2}. A main takeaway from these insights is that financial stability of banks in Denmark is still at stake, especially because it is uncertain if non-interest activities are sustainable.
+
+This paper aims to provide empirical insight into how non-interest income impacts performance and risk for banks in Denmark. The effects on both factors could become increasingly important for regulators to understand if low rates continue to push banks away from traditional sources of income to maintain profitability. Additionally, some findings could be useful for other countries with low/negative rates in the euro-area such as Sweden, Switzerland, and Spain. This paper also strives to expand on related literature pertaining to Danish banks proposed by \hyperlink{Dreyer}{Dreyer et al. (2018)} by including performance considerations, estimating different risk measures, decomposing non-interest income, focusing on a longer time period, and employing a sample with a larger number of banks. More specifically, non-interest income's impact on Return on Average Assets (ROAA) and Return on Average Equity (ROAE) will be examined for performance implications. Effects on risk are considered with two difference measures: Marginal Expected Shortfall (MES) and Historical Value of Risk (HVaR). The former captures systemic risk of a bank, proposed by \hyperlink{Acharya}{Acharya, et al (2012)},  while the latter is for individual tail risk. Additionally, non-interest income is decomposed into its three reported subcomponents: trading, fees \& commissions, and other non-interest income. As \hyperlink{Stiroh}{Stiroh (2004)} points out, there could potentially be heterogeneity within the categories, but these three distinctions are the extent of what is made available through most financial reporting.
+
+Key findings of this paper are: Non-interest income enhances bank performance. A standard deviation increase in non-interest income to assets increases ROAA and ROAE by 15.1\% and 17.2\%, respectively.\footnote{To clarify for future discussion of results, percentage changes refer to $\Delta$DV / Mean of DV (DV = Dependent Variable).} Observing a positive relationship for these two variables aligns with Chiorazzo et al. (2008), Ammar \& Boughara (2019), Ahmad et al. (2015), and Saunders et al. (2016). However, it does not correspond with Stiroh (2004) and Nguyen (2019). Trading income is found to be the one subcomponent that is associated with better performance. A standard deviation increase in trading income to assets results in a 16.3\% rise in ROAA and 20.1\% rise in ROAE. For risk, non-interest income activities were generally found to be risk-increasing. Non-interest income as a whole was not found to be significantly associated with systemic risk, but trading alone was. More specifically, a standard deviation in trading income to assets raises MES by 8.3\%. Individual risk is significantly increased by non-interest income as a whole. A standard deviation increase of non-interest income to assets results in a 6.2\% rise in HVaR. The two subcomponents that were seen to be related with higher individual risk were: fees \& commissions and other non-interest income. Standard deviation increases in these two measures raises HVaR by 4.9\% and 6.8\%, respectively. Results related to increased risk are consistent with Brunnermeier et al. (2019) and Williams (2016) but are inconsistent with Saunders, et. al (2016) and some particular findings in Dreyer et al. (2018). Additional insights related to bank size, asset growth, capitalization and other added controls are also discussed in Sections 5 \& 6. 
+
+The remainder of this paper is organized as follows: Section 2 reviews previous literature on the subject of banking, low/negative interest rates, and non-interest income to provide insights into related methodologies and findings. Section 3 discusses sources of data, measures of performance/risk, and all independent variables that will be considered in analysis. Section 4 covers methodology and Section 5 discusses the empirical results. Finally, Section 6 makes concluding remarks regarding possible policy implications and other research considerations. 
+ 
+\section{Review of Literature}
+
+\subsection{Non-interest Income and Banking}
+Over the past twenty years, bank-related literature connected to non-interest income, performance, and risk has burgeoned for many economies around the world. The results of various research are largely mixed. 
+
+Lopez et al. (2019) conduct an extensive empirical study of the impact of negative rates by aggregating data of 5,200 banks over the period 2010-2017 from 27 different countries in Europe and Asia. This sample includes Denmark, the EMU, Switzerland, Sweden and Japan.\footnote{All of these countries had negative rates during the time of the study.} They utilize a straightforward fixed effects model with a binary variable included to signify those countries in negative rate environments. Their primary result is that net income has not changed significantly for economies with negative rates, while underlying net interest income has declined considerably. These declines were present in gross interest income and loan income specifically. Non-interest income is then the accompanying factor that offsets losses in profitability. Importantly, they conclude by emphasizing that observed gains to non-interest income are not necessarily sustainable over longer periods.    
+
+\hyperlink{Chiorazzo}{Chiorazzo et al. (2008)} utilize a panel data set of 85 Italian banks from 1993-2003 to examine how income diversification impacts banks' risk-adjusted returns. They employ a fixed effects model and use a computed Herfindahl-Hirshman Index of income specialization to define a relationship between non-interest and interest income levels. A fixed effects model with both time and bank fixed effects is used in their methodology. They find that diversified income is beneficial for returns, especially in the case of larger banks. Another key finding is that diversification gains have limitations as bank size becomes very large.
+
+Ashraf et al. (2018) study a panel of 231 commercial banks in South Asia from 2000-2014. They call attention to this region for being the fastest growing economy in the world, with banking acting as the `backbone' to the markets there.  Utilizing a two-step system GMM estimator, they find that income diversification positively impacts profitability and stability. Non-interest income is broken down into its subcomponents, and interestingly, fees \& commission income exhibits a negative relationship to profitability and stability. In contrast, other noninterest income is found to have a positive impact, illustrating that different components of non-interest income could have polarizing effects. Such findings motivate why decomposing non-interest income when possible could useful for regulation insight.  
+
+Ammar \& Boughrara (2019) focus on a sample on 275 banks in 14 MENA (Middle East \& North Africa) countries from 1990-2011 to address the impact of revenue diversification on performance and stability. They employ a two-step system-GMM model and find general improvements to bank profitability, influenced predominantly by trading-related activities. Fees \& commissions and other noninterest income are associated with adverse impacts on stability. There could be a rising concern for insolvency and volatile investments from these activities. Trade-offs regarding liquidity management must also be closely considered if MENA banks are to successfully diversify revenues further in the future. This is another paper that demonstrates polarizing insights obtained from decomposing non-interest income. 
+
+Meslier, et. al (2014) investigate the implications of non-interest income in the Philippines with a sample of 39 banks from 1999-2005, capturing almost 90\% of the banking system. Sampled banks type consist of universal and commercial, rather than rural, thrift, savings, or Islamic banks. Using a two-step GMM estimator, they find diversification measures to have a positive effect on performance and these benefits are driven more so by trading than fee-based activity. The positive effects of trading were attributed to banks dealing with government securities. 
+
+Ahmad et al. (2015) analyze banking performance and income diversification in Pakistan from 2006-2013. Performance is measured by ROA and ROE, the same ratios that are outlined in Section 3.1 of this paper. From a sample of 14 banks, a pooled OLS methodology is utilized for estimation and it is found that there is positive effect from diversification. But they advise that concentrating exclusively on interest or non-interest income is not ideal. Benefits of diversification are highly dependent on individual bank competency in activities they choose to branch into. Bank size, capitalization, and loans to assets are also found to augment performance. Some similar variables for controls are included and discussed in Section 3.2 of this paper. 
+
+Nguyen (2019) collects a sample of 26 commercial banks in Vietnam from 2010-2018 to evaluate the effect of income diversification on risk and performance. It is shown that non-interest income has been increasing for Vietnamese banks, and still has ample room to grow relative to neighboring countries. However, using a GMM model, it is found that there is a negative relationship between revenue diversification and bank performance. A lack of managerial expertise in this new and rapidly growing banking industry is one plausible explanation suggested as to why banks might have difficultly formulating stable profit transformation models. 
+
+Stiroh (2004) sought to understand how the U.S. banking industry's reliance on non-interest income corresponds to possible benefits from diversification.  Aggregate data for investigation was acquired on a quarterly basis from 1984 to 2001 from the FDIC. He concludes that higher levels of non-interest income is related to increased risk and lower risk-adjusted profits. Non-interest income proves to be significantly more volatile than traditional net interest income sources. Overall, Stiroh finds no discernible benefit from income diversification shifts, and advises caution to U.S. regulators, especially in monitoring trading activities. 
+
+Williams (2016) studies a sample of quarterly data for 26 banks in Australia, focusing specifically on the risk implications of income diversification. He uses both MES and HVaR at the 5\% level as dependent variables, the same measures as this paper. Williams ultimately finds no discernible benefit from a combination of interest and non-interest income and determines that non-interest income is riskier than traditional sources. Heightened bank size is also found to be risk-increasing. This could be due to growing informational complexity of larger institutions that inhibits coordination for proper risk management across various firm operations.
+
+Saunders et al. (2016) investigate whether or not restricting banks non-interest activity is beneficial for banking system stability and performance, i.e. they address `ring-fencing' policies. Using a large sample of quarterly data for 10,341 U.S banks, they form estimations using a fixed effects model with lagged explanatory variables. Their selected risk measure was MES and income diversification was measured as a ratio of non-interest income to (net) interest income. Ultimately, they conclude a higher fraction of non-interest to interest income corresponds to higher profitability, and see little evidence supporting increased risk, especially for larger banks.  These results for risk seem to contrast with Brunnermeier et al. (2019), who was looking at U.S. bank activity over a longer time period. 
+ 
+\hyperlink{Brunner}{Brunnermeier et al. (2019)} analyze a sizable sample of 796 U.S banks from 1987-2017, evaluating the link between systemic risk and non-interest income. The two measures of risk used in the study are $\Delta$CoVaR (Conditional Value at Risk) and MES at a 5\% level. $\Delta$CoVaR was pioneered by Adrian \& Brunnermeier (2016) and can be broken down into smaller components that represent bank tail risk, exposure to macroeconomic factors, and interconnectedness. They implement a fixed effects model with clustered standard errors and time dummies, stressing that explanatory variables are lagged by one period (year) to address the `volatility paradox' related to risk-taking. It was found that non-interest income is associated with higher systemic risk, particularly tail risk and interconnectedness\hypertarget{Denmark Literature}. Non-interest income is also instrumented for through a variety of market activity-based factors and similar results are obtained.  
+ 
+\subsection{Denmark-Focused Literature}
+
+Turk (2016) formulates a comprehensive overview of the motivations for negative rate policies in Sweden and Denmark, and their effects on banking systems in both countries. The impetus for such research centers around rising concerns about reduction in banks' net interest margins, commonly considered an essential part of profitability. No apparent effects on banks' bottom lines were observed, but not necessarily because lending and interest income have remained stable. Rather, declines in these areas are cushioned by lower interest expenses and increases in non-interest income activities. Turk advises that such activities must be closely monitored as negative rates persist. Quality of lending may deteriorate and simply increasing fees might become infeasible with increased competitive pressure amongst banks simultaneously cross-selling similar products. All of the insights of Turk (2016) prompted the research focuses of this paper.
+
+Madashi \& Nuevo (2017) also investigate how the profitability of Danish and Swedish banks has been affected by negative monetary policy. They comment on a decline in interest income and the reluctance of banks to let bank deposit rates fall below zero. They note that fee \& commission income has recently become a larger portion of total income for banks. Moving into more detailed analysis, they estimate a pass-through model separately for each country from 2005-2016 to see how monetary policy is related to lending and depositing. The model reveals significant evidence for both countries' preference to maintain a zero-bound for deposit rates, and consequently allow lending-deposit margins to shrink. 
+
+Dreyer et al. (2018) collects panel data on 21 Danish Banks for the period 2000-2015 to evaluate how a variety of factors affect individual, systematic, and systemic risks. They emphasize the banking sector in Denmark is comparable to many other central and eastern European countries. Individual risk is modeled generally from lower bank returns during the Great Recession and how they related to bank characteristics in non-crisis periods. A systematic risk `beta' measure is estimated from a historical stock returns and using the OMX Copenhagen 20 as a market return proxy. Systemic risk is proxied through Systemic Risk Contribution (SRISK) and Long Run Marginal Expected Shortfall (LRMES).\footnote{Dryer et al. (2018) acquired measurements for SRISK and LRMES from the NYU Stern School of Business for five  Danish banks. They are similar measures to MES used in this paper.} Non-interest income is also implemented as representative of market-based activities, but not decomposed further. A pooled OLS model was selected over fixed effects to formulate empirical findings. Their results indicated that non-interest income activity reduced individual risk. On the other hand, bank size and non-interest income were both found to increase systemic risk measures. Concluding remarks emphasized that non-interest income-related activities could very well pose a threat to the financial system and must be seriously considered by Danish bank regulation. Support is voiced for implementation of a counter-cyclical capital buffer. 
+
+  
+\section{Data}
+\par Data for analysis consists of an unbalanced panel of 38 publicly-traded, Denmark-based banks for the time period 1991-2018. Active banks were primarily sourced from the \href{https://www.investing.com/indices/omx-copenhagen-banks-pi-components}{OMX Copenhagen Banks PI}. This price index covers most large Danish banks and also includes two Nordic banks not headquartered in the Denmark but with significant operations in the region, specifically Nordea Bank Abp and Gr\o nlandsBANKEN A/S, both of which are included in analysis.\footnote{Nordea Bank Abp and Gr\o nlandsBANKEN A/S are headquartered in Helsinki, Finland and Nuuk, Greenland, respectively.} The sample also includes Danish banks that became inactive and/or merged over the course of the sample to broaden the scope of analysis and to mitigate potential survivor-ship bias concerns. A complete list of all sampled banks is provided in Section 9.1 of the appendix. Balance sheet and income statement data on individual banks was collected on an annual basis from Bloomberg FA (Financial Analysis). The accounting standard for reporting is DK GAAP\footnote{Danish Generally Accepted Accounting Principles (DK GAAP)} and the currency in all data is USD millions. These figures were used to generate the performance measures and explanatory variables. Individual bank equity data was collected on a daily basis from Datastream to use for estimating both measures of risk.  
+
+
+\subsection{Dependent Variables: Bank Performance \& Risk}
+Bank performance (profitability) is considered in this paper through two conventional measures used by financial analysts: Return on Average Assets (ROAA) and Return on Average Equity (ROAE). ROAA addresses company profitability by illustrating the return on each dollar that is being invested on assets. ROAE compares the average financial contribution of a given bank's shareholders to the net income generated over a pre-specified time period (Dyckman et al. 2020).\footnote{Net income is considered to represent profitability as it indicates revenues after COGS, taxes, interest, and other relevant expenses have been deducted from gross sales.} Since the objective of these ratios is to capture return over a period of time, using average assets or equity from the beginning and ending of a time period is considered best practice to yield the most accurate measures.\footnote{Reporting from the balance sheet represents a `snapshot' of a firm at a specific point in time, while net income reflects earnings over a period of time. Accordingly, using an average of beginning and ending figures on a balance sheet better reflects what a true level of assets or equity would have been during the period and how it aligns with earnings.} ROAA and ROAE are calculated as: 
+\begin{equation}
+ROAA_{i,t} = \frac{\textit{Net Income}_{i,t}} {((\textit{Total Assets}_{i,t} + \textit{Total Assets}_{i,t-1})/2)} 
+\end{equation}
+\begin{equation}
+ROAE_{i,t} = \frac{\textit{Net Income}_{i,t}} {((\textit{Total Book Value of Equity}_{i,t} + \textit{Total Book Value of Equity}_{i,t-1})/2)} 
+\end{equation}
+
+\par For a systemic risk measure, this paper employs Marginal Expected Shortfall (MES), proposed by Acharya et al. (2012). This measure is implemented by Williams (2016) and Brunnermeier et al. (2019). It has proven to be a reliable predictor for bank capital shortfalls during the financial crisis of 2007-2009. MES does make any assumptions about the underlying distribution of returns and takes into account extreme tail events. It can be understood as the average returns of an individual bank when the market is in its $\alpha$\% worse tail over a given time period, i.e. when the market is doing poorly. MES at a 5\% level, the most commonly used measure, is applied in this paper.\footnote{A measure at the 5\% level for a year-long time period will generally correspond to the worst 12-14 days for a market and/or individual bank. This follows from the number of active trading days per year being roughly 260 days on average. Both Brunnermeier et al. (2019) and Williams (2016) utilize a 5\% level measure in their analysis.}  Market returns are proxied for Denmark by the OMX Copenhagen 20 Price Index. A list of the index's components and associated industries are provided for additional reference in Section 9.2 of the appendix. This index was also selected in Dreyer et al. (2018) as the market index for Danish bank risk models. Specifically, MES is calculated as: 
+\begin{equation}
+MES^i_{\alpha\%, t} = \mathbb{E}\left[R^i_t \hspace{0.1cm}| \hspace{0.1cm} R^{Market}_{\alpha\%, t}\right]
+\end{equation}
+where $R^i_t$ is the return of a bank i in time t and is calculated as a daily percent change in the closing stock prices of the given bank:
+\begin{equation*}
+    R^i_t & = & P^i_t / P^{i}_{t-1} - 1
+\end{equation*}
+
+
+\par The second measure of risk implemented is Historical Value at Risk (HVaR). This measure is meant to capture individual bank risk rather than a contribution to larger market downfalls, i.e. bank risk in isolation. Similar to MES, HVaR is non-parametric and does not make any assumptions about the distribution of market returns. It represents a bank's worst $\alpha$\% return over a given time period, and its name is coined from the act of using historical return data to generate an estimate. Since it is a single day's return, HVaR will not address extreme events beyond the selected $\alpha$\% cutoff. Similar to MES, HVaR at a 5\% level is implemented in this paper.\footnote{HVaR at a 5\% level would correspond to a bank's 12\textsuperscript{th}-14\textsuperscript{th} worst trading day's return on average in a year.}  Concretely, it is calculated as: 
+\begin{equation}
+HVaR^i_{\alpha\%, t} = R^i_t \mid Bank^{i}_{\alpha\%, t}
+\end{equation}
+
+\par Summary statistics for all dependent variables are shown in Section 7.2. ROAE can be seen as considerably higher than ROAA given that banks' measures of equity are small relative to assets. Both measures can be negative in the case of extreme bank financial under-performance, especially during periods like the Great Recession.\footnote{These would be periods when the reported figure for a bank's net income is negative. Total assets does not take on negative values.} Systemic risk is also lower than individual risk on average. Note that increased risk is signified by \textit{lower} returns and, thus, more \textit{negative} values for MES and HVaR imply higher risk. Some literature reverses the sign of risk for interpretation by multiplying by -1 (\hyperlink{Brunner}{Brunnermeier et al. 2019}). This paper does not modify the sign of risk variables in analysis. This is important to consider in order to correctly interpret the direction of results.
+
+\subsection{Independent \& Control Variables}
+Taking into consideration prevailing literature, there are a variety of financial ratios that are indicative of performance and risk. All independent and control variables used in analysis are listed and discussed below. Selection of relevant explanatory variables primarily follows Meslier et al. (2014), Chiorazzo et al. (2008), and \hyperlink{Brunner}{Brunnermeier et al. (2019)}. A comprehensive table in Section 7.1 is also provided to present a more concise overview of definitions, references, and data sources. 
+
+\begin{itemize}[label=$-$]
+    \item \textbf{Non-interest Income to Assets}. The main independent variable of interest divided by total assets, representative of a bank's non-interest component of income structure. It is also commonly referred to as a measure representing bank `income diversification' in many pieces of literature. The non-interest income portion of this measure will also be broken down further into its three reported subcomponents: trading, fees \& commissions, and other non-interest income.
+    \item \textbf{Interest Income to Assets}. Representative of the other component of a bank's income structure divided by total assets. Interest income refers specifically to \textit{net} interest income for a bank, that is, considering total interest income minus total interest expense. Net interest income is regarded as `traditional' income for banks.
+    \item \textbf{Decomposed Non-interest Income to Assets}. As was mentioned, the three subcomponents of non-interest income will also evaluated individually in regression models, each divided by total assets.  
+    \item \textbf{Size}. A control for bank size, measured by the natural logarithm of total assets. Size could have many plausible connections to economies of scale for a banking entities that could enable better risk-management capabilities and thus lower risk exposure. On the other hand, as a bank's size increases, it could become increasingly overextended and dysfunctional, which might negatively impact risk and performance (Chiorazzo et al. 2008).
+    \item \textbf{Growth}. It denotes the percent growth of a bank's total assets from the previous period. This is generally considered to be a proxy for risk taking preferences of management (Chiorazzo et al. 2008). A bank that is not adverse to risk could prefer faster growth over a steady income stream. It is also regarded as a control for `growth by acquisition' (Meslier et al. 2014).
+    \item \textbf{Capitalization}. Signifying a bank's degree of financial leverage, measured by: Total Book Value of Equity / Total Assets. Banks that operate with a lower level of equity to assets are more highly leveraged and prone to being riskier (Meslier et al. 2014). It is uncertain if lower capitalization, i.e. higher leverage, could boost bank performance.
+    \item \textbf{Loans}. Measured by: Total Loans / Total Deposits. A control to represent  a bank's lending strategy, which could signify degree of solvency. Increased loans to assets could portend a bank becoming financially overextended, and subsequently having difficulties meeting its obligations from borrowing. A higher ratio has been associated with decreased performance and increased risk (Nguyen 2019).  
+    \item \textbf{Liquid Assets}. Liquid assets for any given bank is considered to be their holdings of cash and cash equivalent items. Cash-like items could be: certificates of deposits, treasury bills, commercial paper, etc. The ratio is calculated as: Cash \& Cash Equivalents / Total Assets. Stockpiling cash-like items could be indicative of risk mitigation if a bank might need liquidity in the short run to meet its current obligations and, thus, could also mark a firm having liquidity issues. Accordingly, the ratio signifies banks' general short-term liquidity, rather than solvency. A higher ratio is expected to contribute to reduced risk, but an impact on performance is unclear. Ashraf et al. (2018) stress that
+    higher liquid asset holdings could improve performance by indicating more funds available to allocate towards investment and loan opportunities. 
+    \item \textbf{Market to Book}. A financial valuation metric that is measured as: Market Value of Equity / Book Value of Equity. A higher market to book ratio ($>$1) could have dual-sided implications. On one hand, it could reflect positive investor sentiment in the a bank's future performance and current usage of its assets, i.e. a well-performing bank that is considered to be worth more than is reflected on paper. On the other hand, a high ratio could be indicative of investor exuberance and reflect an overvalued company. This could portend high market risk and/or poor upcoming performance for the firm. This control is employed in the risk models of Brunnermeier et al. (2019).
+\end{itemize}
+
+Some other controls not included that have been considered in various literature are: nonperforming loans (NPLs) to assets, investments to assets, costs to income, regions of operation, and other similar measures of financial leverage.\footnote{Examples of similar leverage measures could be: Total debt / Total Assets or Total Debt / Capital where capital is defined as Total Debt + Total Equity.} NPLs is a particular control for loan quality implemented by both Chiorazzo et al. (2008) and Brunnermeier et al. (2019). However, its presence in Denmark banking data was extremely sparse and, therefore, it was not feasible to include. Other measures to normalize non-interest income have also been implemented in literature such as total revenue, operating income, or even a calculating a Herfindahl-Hirshman Index (HHI) of income specialization.\footnote{This would be a measure that defines income diversification as a whole and takes into account levels of non-interest income and interest income to produce a singular figure. See Chiorazzo et al. (2008) for one formal definition of this measure.} Total assets was selected over total revenue, but both measures were highly correlated in the data (0.95) and generated relatively similar results. Due to some figures of non-interest income and its components being negative during years of considerable firm under-performance (losses), a HHI income diversification measure could not be constructed appropriately. By design, the measure assumes positive values for all income figures (Chiorazzo, et. al 2008).
+
+Summary statistics for all controls are shown for reference in Section 7.2. Referring to the table, the average shares of non-interest income to assets and interest income to assets are 1.66\% and 3.97\%, respectively. Fees \& commissions represents the largest portion of non-interest activities and is 1.28\% of total assets on average. Growth of assets is roughly 8.9\% and capitalization is around 11.0\% on average. The market to book ratio is close to 1.0 (100\%) on average, signifying that market valuations of the sampled firms commonly align with book value of the firm's equity. Loans represent a large portion of bank size (60.7\%), while liquid asset holdings are much lower on average relative to assets (5.9\%). 
+
+Section 8 also includes various figures that provide visual illustrations of non-interest income to assets overtime, compared with various measures of performance and risk. All graphs shown are based on sample data and depict average levels of a given variable by year. Notably, Figures 1 \& 2 both illustrate a predominate decrease in interest income to assets overtime. A steep decrease also appears to have begun around 2015, when rates were driven even further negative in Denmark. Meanwhile, non-interest income peaked around 2005, dipped considerably during the Great Recession, and then has been mostly increasing since then. 
+
+\section{Methodology}
+
+\par The empirical methodology of this paper is twofold. The first step will be to evaluate how banks' non-interest income component impacts their performance, embodied by ROAA and ROAE. The econometric model for analysis is fixed effects, which is designed to help address endogeneity considerations related to unobservable, time-invariant bank characteristics. Time-variant controls are also introduced (year dummies) to address omitted variable bias resulting from time-related effects, like macroeconomic shocks. Standard errors are robust and clustered at the bank level in every model to handle within-entity correlations. Additionally, to mitigate concerns about simultaneous causality between income and performance, all explanatory variables are lagged by one period. This methodology choice follows Saunders et al. (2016), who uses fixed effects with lagging to evaluate performance of U.S. banks. Formally, the model for performance is the following: 
+\begin{equation}
+    Performance_{i,t} = \beta_0 + \beta_1\textit{(Non-interest Income)}_{i,t-1} +
+    \beta_2X_{i,t-1} + ... + \beta_jX_{j,t-1} + \alpha_i + \delta_t + \epsilon_{i,t}
+\end{equation}
+where: 
+\begin{center}\begin{tabular}{lll}
+$Performance_{i,t}$ & = & ROAA or ROAE of a given bank i in period t \\
+$\textit{Non-interest Income}_{i,t-1}$ & = & Non-interest income variable(s) in period t-1 \\ 
+$X_{i,t-1}...X_{j,t-1}$ & = & Time-variant bank-specific controls in period t-1 \\
+$\alpha_i$ & = & Time-invariant bank-specific dummies \\ 
+$\delta_t$ & = & Time dummies \\
+$\epsilon_{i,t}$ & = & Error term
+\end{tabular}\end{center}
+
+\par Another popular choice for analyzing bank performance is the Generalized Method of Moments (GMM) model, which usually comes in two forms: two-step and/or System-GMM. The lagged instrumentation design of GMM models is regarded as being ideal for dynamic panel data sets, as it addresses concerns of endogeneity, heteroskedasticity, and auto-correlation (Ammar \& Boughara 2019). However, literature also emphasizes this model is designed specifically for `small T, large N' data sets, which does not align well with this paper's sample (Roodman 2009). A large time dimension in the data potentially creates complications with over-instrumentation, consequently eroding the validity of results.\footnote{See Ashraf et al. (2018) where it was stated that the differenced and System-GMM estimators aligned well with a banking data set of 15 years and 200 banks. Ammar \& Boughrara (2019) also use a GMM model with a data set of 21 years and 275 banks. These samples contrast the structure of this paper's data set of 28 years and 38 banks.}
+
+\par The second step is to evaluate how banks' non-interest income is linked to risk, also by utilizing a fixed effects model. This approach follows risk analysis from Brunnermeier et al. (2019) for U.S. banks. Time dummies and robust-clustered standard errors are included in all regressions. To align with Brunnermeier et al. (2019), a bank's market-to-book ratio is included as an additional control in each regression. Here, explanatory variables are also lagged again but the motivation for doing so is intended to take into account volatility paradox implications for bank risk-taking. Lagging addresses the phenomena that risk-taking behavior could be rampant in periods of stability, when opportunity is seemingly abundant. Thus, it is necessary to utilize a forward-looking approach, as the consequences of risk-building activities will most likely manifest themselves in the subsequent period. The model for risk is outlined below: 
+\begin{equation}
+    Risk_{i,t} = \beta_0 +
+    \beta_1X_{i,t-1} + ... + \beta_jX_{j,t-1} + \alpha_i + \delta_t + \epsilon_{i,t}
+\end{equation}
+where: 
+\begin{center}\begin{tabular}{lll}\\
+$Risk_{i,t}$ & = & MES 5\% or HVaR 5\% of a given bank i in period t \\
+$\textit{Non-interest Income}_{i,t-1}$ & = & Non-interest income variable(s) in period t-1 \\ 
+$X_{i,t-1}...X_{j,t-1}$ & = & Time-variant bank-specific controls in period t-1 \\
+$\alpha_i$ & = & Time-invariant bank-specific dummies \\ 
+$\delta_t$ & = & Time dummies \\
+$\epsilon_{i,t}$ & = & Error term
+\end{tabular}\end{center}
+\par Despite including lagged explanatory variables, Brunnermeier et al. (2019) voice concerns about the endogeneity of non-interest income and instruments for it in some models with the following three U.S.-based measures: the lagged dollar values of all IPOs, M\&A transactions, and market volume. Instrumentation considerations were not implemented in this paper's methodology due to the limited availability of such data for Denmark. Other papers that address bank risk also do not make considerations for instrumentation.\footnote{See Williams (2016) and Saunders et al. (2016).}
+
+\par The most basic models for performance include size, growth, and capitalization as the starting group of relevant controls, with market-to-book also being added for risk models. The ratios for a bank's loans and liquid assets are then added individually to ultimately generate a complete model with all relevant explanatory variables included. Accordingly, regression results shown in Section 7.3 and 7.4 are characterized by having six individual columns, representing two models addressing different dependent variables of interest (3 columns each to address adding in loans and liquid assets). The specific dependent variables of interest for a model are listed at the top of each table column and relevant sample means for the dependent variable are also included at the bottom of each table.
+
+\section{Empirical Results}
+
+In this section, empirical findings are discussed for both performance and risk, which are presented formally in Sections 7.3 and 7.4, respectively. Discussion of non-interest variables focus on increases by their sample standard deviations for a more relevant interpretation of the effect on the dependent variables of interest. Results presented in the tables illustrate the impact of a `unit-increase' in all independent variables, which is why the coefficients can appear considerably large relative to the mean dependent variable in the models. Also, note again that all explanatory variables are lagged by design, so the effects can be interpreted as an increase of an independent variable in period t-1 that impacts a dependent variable in period t.
+
+\subsection{Non-interest Income and Performance}
+
+Table 1 evaluates the relationship between non-interest income and both measures of bank performance. Columns 1-3 are focused on a model with ROAA as the dependent variable, and Columns 4-6 with ROAE. It can be seen that non-interest income increases both ROAA and ROAE, significant at the 1\% and 5\% level, respectively. Referring to Columns 3 and 6, a standard deviation increase in non-interest income to assets (0.009) corresponds to a 15.1\% increase in ROAA and a 17.2\% increase in ROAE.\footnote{A percentage increase refers to: $\Delta$DV / Mean of DV (DV = Dependent variable).} Relatively similar effects were discussed by Saunders et al. (2016) for U.S. bank performance and it was stressed that they were `economically highly significant.'\footnote{Specifically, Saunders et al. (2016) noted that a standard deviation increase in non-interest income to interest income corresponded to a 9.9\% increase in ROA and similar results were obtained for ROE.} These results are also consistent with Chiorazzo et al. (2008), Ammar \& Boughara (2019), and Ahmad et al. (2015). On the other hand, they do not align with Stiroh (2004) on U.S. banks and Nguyen (2019) on Vietnamese banks. Interest income to assets can also be seen to significantly increase performance across all models. Bank size, however, appears to decrease both measures. This provides some evidence for a dis-economies of scale argument mentioned by both Chiorazzo et al. (2008) and Ammar \& Boughrara (2019). Larger institutions could become progressively more inefficient, complex, and/or exposed to risks that affect profitability. While big banks might have more funding available for risk management tactics, effective coordination across many different operations could prove difficult to accomplish. Growth in assets is associated with higher performance. This could point to better profitability for bank management that is more aggressive and proactive about expanding activities. It could also be associated with `growth-by-acquisition' benefits and signify better profits for banks engaged in M\&A activities. Capitalization is found to have no discernible relationship to performance, while loans and liquid asset holdings both lead to decreases in ROAA and ROAE.\footnote{Ashraf et al. (2018) also noted an insignificant relationship between capital and performance in their study of South Asian banks. On the other hand, they found that liquidity did coincide with improved performance for ROE.} Moreover, it appears lending activity does not lead to higher profitability. However, Chiorazzo et al. (2008) stress that non-performing loan levels could be an omitted factor in need of consideration, but this balance sheet item was reported too sparsely in the paper's sources of financial data to be included. Holding a higher degree of cash \& cash equivalents to assets might be detrimental to performance because it could signify a company aggregating cash due to with liquidity concerns most likely caused by under-performance. It could also potentially indicate a bank that has subpar investment strategies and elects to stockpile its cash-items.
+
+Table 2 considers performance again but with the three decomposed elements of non-interest income. ROAA as the dependent variable is covered in Columns 1-3 and ROAE in Columns 4-6. Trading income is found to be the singular component of non-interest income that impacts performance, having coefficients that imply significant increases in both ROAA and ROAE. More specifically, from Columns 3 \& 6, a standard deviation increase in trading income to assets (0.005) results in a 16.3\% rise in ROAA and 20.1\% rise in ROAE. These positive results align with Ammar \& Boughrara (2019) for MENA banks and Meslier et al. (2014) for South Asian banks. Fees \& commissions also exhibited a marginally significant relationship to increased ROAA (t-statistic = 2.01). At a 10\% level in Column 3, a standard deviation increase in fees \& commissions to assets (0.006) can be seen to raise ROAA by 6.5\%. Like Table 1, interest income to assets also enhances performance and bank size has a negative impact across all models. Asset growth remains significant and positive at the 1\% level for both measures. Capitalization is still insignificant and loans and liquid assets correspond to dampened performance for ROAA, but have no significant relation to ROAE. Nevertheless, it can be seen that coefficients on these controls for ROAE are similar to those in Table 1. Additionally, the effect of liquid asset holdings on ROAA is now only significant at a 10\% level.
+
+\subsection{Non-interest Income and Risk}
+
+Table 3 analyzes the link between non-interest income and the two measures of bank risk, with Marginal Expected Shortfall (MES) as the dependent in Columns 1-3 and Historical Value at Risk (HVaR) for Columns 4-6. Non-interest income as a whole is not found to have a significant relationship with systemic risk (MES), but is associated with higher individual bank risk (HVaR). From Column 6, a one standard deviation increase in non-interest income to assets (0.009) corresponds to a 6.2\% rise in HVaR.\footnote{Note again for the risk models that a \textit{more negative} value for MES and HVaR implies \textit{higher} risk. This follows from both measures being measured from `poor' equity returns, i.e. returns are worse the more negative a percent change in stock prices is from day t-1 to t.} These results do not correspond to Brunnermeier et al. (2019) who found non-interest income to be systemic risk-increasing for U.S. Banks. They also do not align with Dreyer et al. (2018), who concluded that non-interest income \textit{reduced} individual risk for Danish Banks. Note that this study did not utilize HVaR, but instead focused on bank stock returns during periods in and around the financial crisis of 2007-2009 to derive a measure. However, they do align with Williams (2016) that also used HVaR at a 5\% level and determined income diversification increased the risk of Australian banks. Interestingly, it can be seen that interest income \textit{decreases} HVaR, which highlights the difference between these two types of income in relation to individual bank risk.\footnote{Brunnermeier et al. (2019) also observed some risk-reducing effects of (net) interest income to assets.} Bank size has a significant and negative relationship with MES, a result that aligns with Dreyer et al. (2018). This could allude to increased market exposure of larger banks that makes them more susceptible to aggregate crises. Asset growth is only found to significantly reduce individual risk. Banks that are expanding rapidly could be indicators for strong stability and performance that would enable this type of activity; growth was seen in Tables 1 and 2 to be associated with higher ROAA and ROAE. Capitalization is not found to have any impact on systemic risk, but a higher level of equity to assets does significantly reduce individual bank risk at a 1\% level. This is consistent with expectations that a lower equity to assets ratio implies more financial leverage, i.e. financing with debt, which makes banks' operations more risky.\footnote{Higher leverage is associated with risk for a number of plausible reasons. Debt financing can make firms more susceptible to higher interest expense and the general probability of insolvency and/or bankruptcy can increase with more obligations owed from debt.}  Banks' market-to-book ratio is marginally significant in relation to MES, the coefficient indicates increases in systemic risk. This result leans toward the notion a higher ratio could portend overvaluation and/or higher leverage of a firm.\footnote{Book value of equity could be low because a firm is favoring debt financing rather than shareholder's equity to perform its operations.} It could also signify more investor exuberance in periods of economic prosperity. Loans are found to reduce systemic risk, at a marginal significance level of 10\%. Liquid asset holdings are not seen to be significantly related to MES or HVaR.
+
+Table 4 also analyzes risk with the three decomposed elements of non-interest income. MES is the dependent variable in Columns 1-3 and HVaR in Columns 4-6. Trading income is found to be the one component associated with increased systemic risk, significant at a 5\% level. From Column 3, a standard deviation increase in trading income to assets (0.005) corresponds to a 8.3\% increase in MES. The systemic risk-increasing effects of trading activity align with the findings of Brunnermeier et al. (2019) and the insights of Stiroh (2004). Such results emphasize the interpretation that having an active trading portfolio increases market exposure, which could invite large losses especially during recessions. For individual risk, fees \& commissions and other non-interest income both are associated with increases in HVaR, while trading income is not significant. Referring to Column 6, a standard deviation increase in fees \& commissions and other non-interest income result in a 4.9\% and 6.8\% increase in HVaR, respectively. This finding calls into question the feasibility of any component of non-interest income, considering they all have some association to increased risk. Once again, increasing interest income to assets is associated with reduced HVaR, drawing attention to the polar effects of these two income types for individual risk. Results for bank size, capitalization, and market-to-book are all similar to those generated in Table 3. Notably, the link between market-to-book and higher systemic risk is now significant at a 5\% level. On the other hand, coefficients for loans and liquid assets are now insignificant across all models, but show similar sign and magnitude to the previous risk model.  
+
+\section{Conclusion}
+
+This paper focused on the implications of non-interest income for performance and risk of banks operating in Denmark. The underlying motivation for investigation stemmed from research concerned with financial stability under negative interest rate monetary regimes, such as Lopez et al. (2019), Turk (2016), and Madashi \& Nuevo (2017). A squeeze on interest income levels and a sticky `zero floor' for deposit rates calls into question how feasible it could be for non-interest income activity to cushion profits, especially if negative rates persist in Europe and Japan. Denmark is a country that has had negative rates since 2012 and literature has highlighted increased non-interest income there as a consequence. 
+
+Employing a sample of 38 publicly-traded, Danish sector banks for the period 1991-2018, this paper found that non-interest income is generally related to enhanced performance and increased risk. Higher non-interest income to assets corresponded to improvements in ROAA and ROAE, and raised HVaR. While benefits towards profitability are evident, the latter result casts doubt on the stability of `non-traditional' activities. A contrasting result to also note for individual bank risk is that increases in `traditional' interest income to assets resulted in dampened HVaR. The association of trading income with increased ROAA, ROAE, and MES could be a noteworthy result for regulation preoccupied with systemic risks of the Danish banking system. Dreyer et al. (2018) pointed out that the Systemic Risk Council in Denmark did not focus heavily on non-interest income activity in comparison to lending, leverage, size, and other bank factors when considering appropriate policies. Since trading activity might provide the best opportunity for banks to improve profitability and was not found to be associated with individual risk, it could be sought after as a `reach for yield' if net interest margins shrink further.\footnote{Balloch \& Koby (2019) used this phrase when examining low interest rates in Japan and potential bank risks as demand decreases for loans. Banks could increase investing in securities, i.e. a `reach for yield.' } Accordingly, trading activity may have to be closely monitored to ensure the banks are not becoming extremely vulnerable to market volatility. Since non-interest income as a whole was not found to be related to MES, the most advisable strategy for banks to avoid market shortfall exposure could be having non-interest income related activities that are somewhat diversified and do not lean heavily on trading in particular. Fees \& commissions and other non-interest income are found to raise HVaR, without providing any discernible individual benefit to performance. Simply resorting to higher fees \& commission income to stifle potential losses in profitability is most likely not a realistic option for the banking system, especially if no improvements in actual services are being made available to clients. Little market power for smaller banks and general market competition might be other plausible explanations for why sustained fee income is infeasible. Other non-interest income could also be related to activities that increase unwanted competition between commercial banks and other types of financial institutions like investment banks and hedge funds. It may be important for regulation to understand that non-interest income expansion in areas apart from trading is not necessarily a safe option. 
+
+Other results related to bank controls that were found in this paper could prove useful for risk management and policy. Increasing bank size was found to be associated with lower performance and higher systemic risk. This points to dis-economies of scale and undesirable market-exposure for large banks. Asset growth boosts performance and reduces HVaR, so expansion and industry M\&A could be encouraged within reason. While capitalization had no significant relationship with ROAA or ROAE, a higher ratio of equity to assets corresponded to lower HVaR, which confirmed expectations that financial leverage is related to higher bank risk. Market-to-book showed a general link to firms with higher systemic risk, which could be useful from an investing perspective. Loans and liquid assets were both associated with weaker bank performance, while increased lending activity only offered some sparse, marginally significant reductions in systemic risk. Moreover, regulation might aim to put less emphasis onto these measures when considering appropriate risk-mitigation oversight and advisory. 
+
+Finally, there are many research considerations that can potentially be made for future work to improve the validity and robustness of the results found in this paper. Non-interest income's effect on performance was evaluated following Saunders et al. (2016) using a lagged explanatory variable fixed effects model, but a bulk of literature has pointed out that a GMM model is ideal for addressing understandable endogeneity concerns between income measures and performance. While the sample used in this paper did not prove ideal for the GMM's `small T, large N' oriented design, finding a better-suited collection of Danish banking data for proper implementation could be a step toward more valid inference about performance. Potential endogeneity of non-interest income was also not addressed through instrumentation, as it was in Brunnermeier et al. (2019), due to a lack of appropriate market-related data. This is another model specification that could improve the quality of results related to risk. Other risk measures were not considered that could be substituted for MES such as $\Delta$CoVaR, CATFIN, or LRMES.\footnote{CATFIN is an aggregate measure of bank risk proposed by Allen et al. (2012). LRMES was utilized by Dreyer et al. (2018) for Danish banks. It is a similar to MES, but simulation-based, taking into account current market value, expected losses in market tails, and outstanding debt levels for individual firms.} Many other strategies for calculating a Value at Risk measure also exist.\footnote{Two additional methods to note are the variance/co-variance method and Monte Carlo simulation.} Some additional variables and financial statement items could also be examined for better robustness of results like non-performing loans, management type, region of operation, or different measures of income diversification. These considerations could prove useful to offer improved insights surrounding monetary policy and banking, especially in the case of Danish banking. Denmark is a country that could be comparable for others in Europe with negative rates and those around the world with low rates considering going into negative territory. The more that can be understood about financial systems in these monetary environments, the better for optimal economic policy. 
+
+
+
+\newpage
+\begin{thebibliography}{40}
+
+\bibitem{Acharya 2017}
+\hypertarget{Acharya}
+Acharya, Viral, Lasse, Pedersen, Philippon, \& Richardson (2017)
+``Measuring Systemic Risk,"
+\textit{Review of Financial Studies} 30, 2--47. 
+
+\bibitem{Adrian 2016}
+\hypertarget{Adrian}
+Adrian \& Brunnermeier (2016)
+``CoVaR,"
+\textit{American Economic Review}
+106, 7, 1705--1741. Web.
+
+\bibitem{Ahamed 2017}
+\hypertarget{Ahamed}
+Ahamed (2017)
+``Asset Quality, Non-interest Income, and Bank Profitability: Evidence from Indian Banks,"
+\textit{Economic Modelling, Elsevier,} vol. 63(C), p. 1--14. 
+
+\bibitem{Ahmad 2015}
+\hypertarget{Ahmad}
+Ahmad, Choudhary, Hanif, \& Ismail (2015) ``Income-Diversification in the Banking Sector of Pakistan: A `Blessing' or `Curse'?"
+\textit{The Journal of Commerce} vol. 7(1), p. 11--22.
+
+\bibitem{Albertazzi 2009}
+\hypertarget{Albertazzi}
+Albertazzi \& Gambacorta (2009) 
+``Bank Profitability and the Business Cycle," 
+\textit{Journal of Financial Stability}
+5, 393--409
+
+\bibitem{Ammar 2019}
+\hypertarget{Ammar}
+Ammar \& Boughrara (2019) 
+``The Impact of Revenue Diversification on Bank Profitability and Risk: Evidence from MENA Banking Industry," 
+\textit{Macroeconomics \& Finance in Emerging Market Economies.}
+Taylor \& Francis Journals, vol. 12(1), p. 36-70, January.
+
+\bibitem{Ashraf 2018}
+\hypertarget{Ashraf}
+Ashraf, Wang, Peng, \& Nisar (2018) 
+``The Impact of Revenue Diversificaiton on Bank Profitability and Stability: Empirical Evidence from South Asian Countries" 
+\textit{International Journal of Financial Studies, MDPI, Open Access Journal.}
+vol. 6(2), p. 1--25, April.
+
+\bibitem{Basten 2018}
+\hypertarget{Basten}
+Basten \& Mariathasan (2018) 
+``How Banks Respond to Negative Interest Rates: Evidence from the Swiss Exemption Threshold," 
+\textit{CESifo Group Munich.}
+CESifo Working Paper Series 6901. 
+
+\bibitem{Balloch 2019} 
+\hypertarget{Balloch}
+Balloch \& Koby (2019) 
+``Low Rates and Bank Loan Supply: Theory and Evidence from Japan," 
+\textit{Bendheim Center for Finance,}
+Princeton University. 
+
+\bibitem{Bostandzic 2018}
+\hypertarget{Bostandzic}
+Bostandzic, Denefa, \& Weiss (2018)
+``Why Do Some Banks Contribute More to Global Systemic Risk?" 
+\textit{Journal of Financial Intermediation}
+35, 17--40. 
+
+\bibitem{Brunnermeier 2019} 
+\hypertarget{Brunnermeier}
+Brunnermeier \& Koby (2019) 
+``The Reversal Interest Rate," 
+\textit{Institute for Monetary and Economic Studies.}
+IMES Discussion Paper Series 19-E-06. Bank of Japan. 
+
+\bibitem{Main Paper}
+\hypertarget{Brunner}
+Brunnermeier, Konrad, Dong, \& Darius (2019) ``Banks' Non-Interest Income and Systemic Risk," 
+\textit{Review of Corporate Financial Studies} (Forthcoming): n. pag. Print.
+
+\bibitem{Chang 2014}
+\hypertarget{Chang}
+Chang \& Lee (2014) 
+``Non-interest Income, Profitability, and Risk in the Banking Industry: A Cross-Country Analysis,"
+\textit{North American Journal of Economics and Finance,}
+27, 48--67. 
+
+\bibitem{Chiorazzo}
+\hypertarget{Chiorazzo}
+Chiorazzo, Milani, \& Salvini (2008) 
+``Income Diversification and Bank Performance: Evidence from Italian Banks,"
+\textit{Journal of Financial Services Research}
+Springer; Western Finance Association, vol. 33(3), p. 181-203, June.
+
+\bibitem{De Jonghe 2010} 
+\hypertarget{De Jonghe}
+De Jonghe (2010)
+``Back to the Basics in Banking? A Micro-Analysis of Banking System Stability,"
+\textit{Journal of Financial Intermediation}
+19, 387-417. 
+
+\bibitem{Dreyer 2018}
+\hypertarget{Dreyer}
+Dreyer, Schmid, \& Zugrav (2018) 
+``Individual, Systematic, and Systemic Risks in the Danish Banking Sector,"
+\textit{Czech Journal of Economics and Finance}, 68, 2018, no. 4, 320--350. 
+
+\bibitem{Dyckman 2020} 
+\hypertarget{Dyckman}
+Dyckman, Hanlon, Magee, \& Pfieffer (2020)
+``Financial Accounting,"
+\textit{Sixth Edition, Cambridge Business Publishers LLC. }
+Chapter 5: Analyzing and Interpreting Financial Statements, 219--241. 
+
+\bibitem{Eggertsson 2019}
+\hypertarget{Eggertsson}
+Eggertsoon, Juelsrud, Summers, \& Wold (2019) ``Negative Nominal Interest Rates and the Bank Lending Channel,"
+\textit{NBER Working Paper,}
+25417.
+
+\bibitem{Genay 2014}
+\hypertarget{Genay}
+Genay \& Podjasek (2014) ``What is the Impact of a Low Interest Rate Environment on Bank Profitability?"
+\textit{Chicago Fed Letter,}
+The Federal Reserve Bank of Chicago. 
+
+\bibitem{Hamdi 2017}
+\hypertarget{Hamdi}
+Hamdi, Hakimi, \& Zaghdoudi (2017) ``Diversification, Bank Performance, and Risk: Have Tunisian Banks Adopted a New Business Model,"
+\textit{Financial Innovation, Springer, Southwestern University of Finance and Economics,} vol. 3(1), p. 1--25, December.
+
+\bibitem{Kohler 2014}
+\hypertarget{Kohler}
+K\"{o}hler (2014)
+``Does Non-interest Income Make Banks More Risky? Retail versus Investment--Oriented Banks,"
+\textit{Review of Financial Economics}
+23, 182--93.
+
+\bibitem{Lopez 2018}
+\hypertarget{Lopez}
+Lopez, Rose, \& Spiegel (2018) ``Why Have Negative Nominal Interest Rates Had Such a Small Effect on Bank Performance?"
+\textit{CEPR Discussion Papers,}
+13010. C.E.P.R Discussion Papers. 
+
+\bibitem{Li 2013}
+\hypertarget{Li}
+Li \& Zhang (2013) ``Are there Diversification Benefits of Increasing Non-interest Income in the Chinese Banking Industry?"
+\textit{Journal of Empirical Finance,} vol. 24, p 151--155  
+
+\bibitem{Lilley 2019}
+\hypertarget{Lilley}
+Lilley \& Rogoff (Forthcoming, 2020) 
+``The Case for Implementing Effective Negative Interest Rate Policy," 
+\textit{Strategies for Monetary Policy.} 
+Stanford, California. Hoover Institution Press.
+
+
+\bibitem{Madashi 2017}
+\hypertarget{Madashi}
+Madashi \& Nuevo (2017)
+``The Profitability of Banks in a Context of Negative Monetary Policy Rates: The Case of Sweden and Denmark,"  
+\textit{Occasional Paper Series 195,} European Central Bank.
+
+\bibitem{Crouzille 2014}
+\hypertarget{Meslier}
+Meslier, Tacneng, \& Tarazi (2014) 
+``Is Bank Income Diversification Beneficial? Evidence from an Emerging Economy,"
+\textit{Journal of International Financial Markets, Institutions and Money} 31: 97--126.
+
+\bibitem{Mndeme 2015}
+\hypertarget{Mndeme}
+Mndeme (2015)
+``The Impact of Non-interest Income on Banking Performance in Tanzania,"  
+\textit{International Journal of Economics, Commerce, \& Management,} United Kingdom, vol. 3(5), May 2015. http://ijecm.co.uk/ 
+
+\bibitem{Nguyen 2019}
+\hypertarget{Nyuyen}
+Nguyen (2019) 
+``Revenue Diversification, Risk and Bank Performance of Vietnamese Commercial Banks," 
+\textit{Journal of Risk and Financial Management,} MDPI, Open Access Journal, vol. 12(3), p. 1--21, August.
+
+\bibitem{Randow 2019}
+\hypertarget{Randow}
+Randow \& Takeo (2019) 
+``Analysis: Negative Interest Rates,"
+\textit{Bloomberg.}
+Retrieved from https://www.washingtonpost.com/business/negative-interest-rates/2019/11/01/fca350e0-fcaf-11e9-9e02-1d45cb3dfa8f-story.html
+
+\bibitem{Roodman 2009}
+\hypertarget{Roodman}
+Roodman (2009) 
+``How to do xtabond2: An Introduction to Difference and System GMM in Stata"
+\textit{The Stata Journal} 9, Number 1, pp. 86-136.
+
+\bibitem{Saunders 2016}
+\hypertarget{Saunders}
+Saunders, Schmid, \& Walter (2016)
+``Non-interest Income and Bank Performance: Does Ring-Fencing Reduce Bank Risk?" 
+\textit{Working Papers on Finance,} 1417. University of St. Gallen, School of Finance, revised March 2016.
+
+\bibitem{Stiroh 2004}
+\hypertarget{Stiroh}
+Stiroh (2004) 
+``Diversification in Banking: Is Non-interest Income the Answer?"
+\textit{Journal of Money, Credit, and Banking}
+36, 853--882.
+
+\bibitem{Turk 2016}
+\hypertarget{Turk}
+Turk (2016)
+``Negative Interest Rates: How Big a Challenge for Large Danish and Swedish Banks?"
+\textit{IMF Working Paper,}
+no. 198. 
+
+\bibitem{Williams 2016}
+\hypertarget{Williams}
+Williams (2016)
+``The Impact of Non-interest Income on Bank Risk in Australia," 
+\textit{Journal of Banking and Finance}
+73, 16--37. 
+
+\end{thebibliography}
+\newpage
+
+\section{Tables}
+\thispagestyle{plain}
+\subsection{Variable Descriptions}
+
+\begin{table}[H]
+\label{This is a label}
+\resizebox{\textwidth}{!} {
+\begin{tabular}{llll} \hline & & & &
+\textbf{\large{Variables}} & \textbf{\large{Definition}} & \textbf{\large{References}} & \textbf{\large{Source}} \\ \hline\hline
+ & & & & &  \\
+ 
+\textbf{Return on Average Assets} & Net Income$_t$ / $((TA_{t} + TA_{t-1})/2)$ & Saunders et al. (2016) & Bloomberg (Balance Sheet) \\
+\textbf{(ROAA)} & \textit{TA = Total Assets} & Ashraf et al. (2018) & \newline
+& & & Meslier et al. (2014) & \newline
+& & & Ahmad et al. (2015) & \\\\
+
+\textbf{Return on Average Equity} & Net Income$_t$ / $((TE_{t} + TE_{t-1})/2)$ & Saunders et al. (2016) & Bloomberg (Balance Sheet) \\
+\textbf{(ROAE)} & \textit{TE = Total Equity} & Ashraf et al. (2018) & \newline
+& & & Meslier et al. (2014) & \\\\
+
+\textbf{Marginal Expected Shortfall} & See Section 3.1 & Brunnermeier et al. (2019) & Estimated, Datastream for equity data \\
+\textbf{(MES)} & & Williams (2016) & \newline
+& & & Saunders et al. (2016) & \\\\
+
+\textbf{Historical Value at Risk} & See Section 3.1 & Williams (2016) & Estimated, Datastream for equity data \\
+\textbf{(HVaR)} & & & \newline
+& & &  & \\\\
+
+\textbf{Non-interest Income to Assets} & Non-interest Income / Total Assets  & Brunnermeier et al. (2019) & Bloomberg (Income Statement) \\\\
+
+\textbf{Interest Income to Assets} & Net Interest Income / Total Assets  & Brunnermeier et al. (2019) & Bloomberg (Income Statement) \\\\
+
+\textbf{Trading to Assets} & Trading Income / Total Assets  & Brunnermeier et al. (2019) & Bloomberg (Income Statement) \\\\
+
+\textbf{Fees \& Commissions to Assets} & Fees \& Commissions Income / Total Assets  & Brunnermeier et al. (2019) & Bloomberg (Income Statement) \\\\
+
+\textbf{Other Non-interest to Assets} & Other Non-interest Income / Total Assets  & Brunnermeier et al. (2019) & Bloomberg (Income Statement) \\\\
+
+\textbf{Size} & ln(Total Assets) &  Chiorazzo et al. (2008) & Bloomberg (Balance Sheet) \\
+& & Hamdi et al. (2017) & & \\\\
+
+\textbf{Growth} & $TA_{t}$ / $TA_{t-1}$ - 1 &  Meslier et al. (2014) & Bloomberg (Balance Sheet) \\
+& \textit{TA = Total Assets} & Chiorazzo et al. (2008) & \\\\
+
+\textbf{Capitalization} & Total Book Value of Equity / Total Assets & Ashraf et al. (2018) & Bloomberg (Balance Sheet) \\
+& & Meslier et al. (2014) & \\
+& & Chiorazzo et al. (2008) & & \\
+
+
+\textbf{Market to Book} & Market Value of Equity /  Book Value of Equity & Brunnermeier et al. (2019) & Bloomberg (Balance Sheet) \& Datastream \\\\
+
+\textbf{Loans} & Total Loans / Total Assets & Nguyen (2019) & Bloomberg (Balance Sheet) \\
+& & Chiorazzo et al. (2008) & \\\\
+
+\textbf{Liquid Assets} & Cash \& Cash Equivalents / Total Assets & Brunnermeier et al. (2019) & Bloomberg (Balance Sheet)
+\\ 
+& & Ashraf et al. (2018) \\\\
+\hline \hline \\
+\end{tabular}}
+\end{table}
+\scriptsize{Accounting standard: DK GAAP. Currency in the data: USD (millions). Section 7.2 provides a table of summary statistics for all variables listed.}
+\newpage
+
+
+\subsection{Summary Statistics}
+\thispagestyle{plain}
+\begin{table}[H]
+\label{This is a label}
+\resizebox{\textwidth}{!} {
+\begin{tabular}{lcccccc} \\ \hline
+ &  &  &  &  &  \\
+\textbf{VARIABLES} & \textbf{N} & \textbf{Mean} & \textbf{Median} & \textbf{Std. Dev.} & \textbf{Min} & \textbf{Max} \\ \hline\hline
+ &  &  &  &  &  \\
+ \textbf{Return on Average Assets (ROAA)} & 779 & 0.872\% & 0.997\% & 1.168\% & -11.646\% & 3.311\% \\\\
+  \textbf{Return on Average Equity (ROAE)} & 779 & 6.893\% & 9.363\% & 13.807\% & -146.65\% & 42.895\% \\\\
+\textbf{Marginal Expected Shortfall (MES)} & 793 & -1.090\% & -0.774\% & 1.209\% & -8.630\% & 2.672\% \\\\
+\textbf{Historic Value at Risk (HVaR)} & 793 & -2.765\% & -2.228\% & 1.876\% & -13.159\% & -0.704\% \\\\
+\textbf{Non-interest Income to Assets} & 793 & 0.0166 & 0.0161 & 0.0091 & -0.0198 & 0.0894 \\\\
+\textbf{Interest Income to Assets} & 793 & 0.0397 & 0.0383 & 0.0159 & 0.0070 & 0.0870 \\\\
+\textbf{Trading to Assets} & 781 & 0.0026 & 0.0024 & 0.0056 & -0.0286 & 0.0222 \\\\
+\textbf{Fees \& Commissions to Assets} & 793 & 0.0128 & 0.0122 & 0.0066 & 0.0031 & 0.0820 \\\\
+\textbf{Other Non-interest to Assets} & 787 & 0.0013 & 0.0008 & 0.0021 & -0.0076 & 0.0331 \\\\
+\textbf{Size} & 793 & 6.7750 & 6.2322 & 2.1329 & 3.6326 & 13.741 \\\\
+\textbf{Growth} & 793 & 0.0884 & 0.0480 & 0.1901 & -0.3439 & 1.2781 \\\\
+\textbf{Capitalization} & 793 & 0.1109 & 0.1136 & 0.0395 & 0.0013 & 0.2009 \\\\
+\textbf{Market to Book} & 793 & 0.9630 & 0.8415 & 0.5496 & 0.1155 & 9.7333\\\\
+\textbf{Loans} & 793 & 0.6071 & 0.6169 & 0.0985 & 0.1663 & 0.8408 \\\\
+\textbf{Liquid Assets} & 793
+& 0.0595 & 0.0324 & 0.0636 & 0.0019 & 0.3221 \\\\
+\hline\hline \\
+\end{tabular}}
+\end{table}
+\small{Accounting standard: DK GAAP. Currency in the data: USD (millions). Sections 3.1 and 3.2 describe all variables in detail. Section 7.1 provides a comprehensive table for variable definitions, references, and sources of data.}
+
+
+
+
+\newpage 
+\thispagestyle{plain}
+\subsection{Non-interest Income \& Performance}
+
+\begin{table}[H]
+    \centering
+  \caption{Non-interest Income to Assets and Bank Performance}
+    {\renewcommand\normalsize{\small}%
+    \normalsize
+    \input{roaa_nonintta}}
+\end{table}
+\noindent\small{Robust standard errors clustered at the bank-level are shown in parentheses. Bank and year fixed effects are included for all models. Columns 1-3 focus on Return on Average Assets (ROAA) as the dependent variable for performance, and Columns 4-6 on Return on Average Equity (ROAE). All explanatory variables are lagged by one year. A sample mean of the dependent variable in each model is included for reference at the bottom of the table. ***, **, * indicate statistical significance at the 1\%, 5\%, and 10\% level, respectively.}
+\newpage 
+
+\thispagestyle{plain}
+\begin{table}[H]
+    \centering
+  \caption{Decomposed Non-interest Income to Assets and Bank Performance}
+    {\renewcommand\normalsize{\small}%
+    \normalsize
+    \input{roaa_nonintta_decomp}}
+\end{table}
+\noindent\small{Robust standard errors clustered at the bank-level are shown in parentheses. Bank and year fixed effects are included for all models. Columns 1-3 focus on Return on Average Assets (ROAA) as the dependent variable for performance, and Columns 4-6 on Return on Average Equity (ROAE). All explanatory variables are lagged by one year. A sample mean of the dependent variable in each model is included for reference at the bottom of the table. ***, **, * indicate statistical significance at the 1\%, 5\%, and 10\% level, respectively.}
+\newpage 
+
+\subsection{Non-interest Income \& Risk}
+\thispagestyle{plain}
+\begin{table}[H]
+    \centering
+  \caption{Non-interest Income to Assets and Bank Risk}
+    {\renewcommand\normalsize{\small}%
+    \normalsize
+    \input{risk_nonintta}}
+\end{table}
+\noindent\small{Robust standard errors clustered at the bank-level are shown in parentheses. Bank and year fixed effects are included for all models. Columns 1-3 focus on Marginal Expected Shortfall (MES) as the dependent variable for systemic bank risk and Columns 4-6 on Historical Value at Risk (HVaR) for individual risk. All explanatory variables are lagged by one year. A sample mean of the dependent variable in each model is included for reference at the bottom of the table. ***, **, * indicate statistical significance at the 1\%, 5\%, and 10\% level, respectively.}
+\newpage
+
+
+\thispagestyle{plain}
+\begin{table}[H]
+    \centering
+  \caption{Decomposed Non-interest Income to Assets and Bank Risk}
+    {\renewcommand\normalsize{\small}%
+    \normalsize
+    \input{risk_nonintta_decomp}}
+\end{table}
+\noindent\small{Robust standard errors clustered at the bank-level are shown in parentheses. Bank and year fixed effects are included for all models. Columns 1-3 focus on Marginal Expected Shortfall (MES) as the dependent variable for systemic bank risk and Columns 4-6 on Historical Value at Risk (HVaR) for individual risk. All explanatory variables are lagged by one year. A sample mean of the dependent variable in each model is included for reference at the bottom of the table. ***, **, * indicate statistical significance at the 1\%, 5\%, and 10\% level, respectively.}
+
+
+\newpage
+\section{Figures} 
+\thispagestyle{plain}
+Note: Figure 1 features a shared y-axis. All other figures feature overlapping measures with separate y-axes. 
+
+\begin{figure}[H] 
+\caption{Non-interest Income to Assets vs. Interest Income to Assets (Shared y-axis)}
+\centering 
+\includegraphics[width=12.0cm]{1axis_nointta_intta.png}
+\end{figure} 
+
+\begin{figure}[H] 
+\caption{Non-interest Income to Assets vs. Interest Income to Assets (Seperate y-axes)}
+\centering 
+\includegraphics[width=12.0cm]{2axis_nonintta_intaa.png}
+\end{figure} 
+
+\newpage
+\thispagestyle{plain}
+\begin{figure}[H] 
+\caption{Non-interest Income to Assets vs. Return on Average Assets (ROAA)}
+\centering 
+\includegraphics[width=12.0cm]{nonintta_roaa.png}
+\end{figure} 
+
+\begin{figure}[H] 
+\caption{Non-interest Income to Assets vs. Return on Average Equity (ROAE)}
+\centering 
+\includegraphics[width=12.0cm]{nonintta_roae.png}
+\end{figure} 
+\newpage
+
+\thispagestyle{plain}
+\begin{figure}[H] 
+\caption{Non-interest Income to Assets vs. Marginal Expected Shortfall (MES 5\%)}
+\centering 
+\includegraphics[width=12.0cm]{nonintta_mes.png}
+\end{figure} 
+
+\begin{figure}[H] 
+\caption{Non-interest Income to Assets vs. Historical Value at Risk (HVaR 5\%)}
+\centering 
+\includegraphics[width=12.0cm]{nonintta_hvar.png}
+\end{figure} 
+
+
+\newpage
+\thispagestyle{plain}
+\section{Appendix}
+\subsection{List of Sampled Banks}
+\begin{table}[H]
+    \centering
+    \caption{}
+    \footnotesize{
+    \begin{tabular}{l c} \hline
+        & & 
+        Name & Current Member of Copenhagen Banks PI   \\\hline \\
+        
+        Danske Bank A/S & Y \\
+        Vestjsk Bank A/S & Y \\
+        Jyske Bank A/S & Y \\
+        Sydbank A/S & Y \\
+        Danske Andelskassers A/S & Y \\
+        Spar Nord Bank A/S & Y \\
+        Ringkj\o bing LandboBank A/S  & Y \\
+        Skjern Bank A/S & Y \\
+        Fynske Bank A/S & Y \\
+        BankNordik A/S & Y \\
+        Totalbanken A/S & Y \\
+        Gr\o nlandsBANKEN A/S & Y \\
+        Sparekassen Sjaelland-Fyn A/S & Y \\
+        M\o ns Bank A/S & Y \\
+        Hvidbjerg Bank A/S & Y \\
+        L\r{a}n \& Spar Bank A/S & Y \\
+        Lollands Bank A/S & Y \\
+        Djurslands Bank A/S & Y \\
+        Nordea Bank Abp & Y \\
+        Jutlander Bank A/S & Y \\
+        Nordfyns Bank A/S & Y \\
+        Salling Bank A/S & Y \\
+        Kreditbanken Bank A/S & Y \\
+        Nordyjske Bank A/S & N \\
+        Ostjydsk Bank A/S & N \\
+        Vordingborg Bank A/S & N \\
+        Vestfyns Bank A/S & N \\
+        Vendsyssel Bank A/S & N \\
+        Tarm Bank A/S & N \\
+        Skaelskor Bank A/S & N \\
+        Morso Bank A/S & N \\
+        Max Bank A/S & N \\
+        Forstaedernes Bank A/S & N \\
+        Noerresundby Bank A/S & N \\
+        Aars Bank A/S & N \\
+        DiBa Bank A/S & N \\
+        Aarhus Lokalbank A/S & N \\
+        Ringj\o bing Bank A/S & N \\
+    \end{tabular}}
+    \label{}
+\end{table}
+\newpage 
+
+\thispagestyle{plain}
+\subsection{Current OMX Copenhagen 20 Constituents}
+The current constituents of the OMX 20 Copenhagen Price Index as of late April, 2020. This index was used as proxy for market returns in the calculation of Marginal Expected Shortfall (MES). For further details, refer to Section 3.1.
+\begin{table}[H]
+    \centering
+    \caption{}
+    \small{
+    \begin{tabular}{l l} \hline \\
+         Name & Sector \\ \hline \\
+         Demant A/S & Health Care \\
+         Tryg A/S & Insurance \\
+         Royal Unibrew A/S & Brewing \\
+         Orsted A/S & Energy \\
+         H. Lundbeck A/S & Pharmaceuticals \\
+         Coloplast A/S & Medical Devices \\
+         GN Store Nord A/S & Manufacturer \\
+         Chr. Hansen Holding A/S & Bioscience \\
+         Novo Nordisk A/S & Pharmaceuticals \\
+         Ambu A/S & Medical Devices \\
+         Carlsberg A/S & Brewing \\
+         Genmab A/S & Biotechnology \\
+         Vestas Wind Systems A/S & Manufacturing \\
+         Novozymes A/S & Biotechnology \\
+         DSV Panalpina & Transport Services \\
+         A.P. Moller - Marsk A/S & Transport Services \\
+         SimCorp A/S & Software \\
+         ISS A/S & Facility Services \\
+         Danske Bank A/S & Banking \\
+         Pandora A/S & Jewelry \\
+    \end{tabular}}
+    \label{}
+\end{table}
+\text{Source:\textit{ https://finance.yahoo.com/quote/\%5EOMXC20/components?p=\%5EOMXC20}}
+
+% Prevailing literature voices concerns about such policy eroding banks' sources of ``traditional income", captured by interest income, but researchers also find that banks profitability in negative rate environments is being bolstered by increases in non-interest income. Thus, knowing the benefits and sustainability of such income is becoming increasingly relevant for monetary policy and bank regulation, especially if low/negative rates remain persistent.
+
+\end{document}
